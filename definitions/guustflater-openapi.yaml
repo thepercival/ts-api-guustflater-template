@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Compute Sports Planning API
+  contact:
+    name: Guust Flater
+    url: https://guustflater.nl
+    email: gflater@strip.nl
+  version: 1.0.0
+  license:
+    name: GNU General Public License v3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+servers:
+  - url: "https://guustflater.nl/v1"
+security:
+  - ApiKeyAuth: []
+paths:
+  /animals:
+    get:
+      operationId: getAnimals
+      summary: provides Animal information
+      responses:
+        200:
+          description: Animal information
+          content:
+            application/json:
+              schema:
+                type: array                
+                items:
+                  $ref: "#/components/schemas/Animal"
+    post:
+      operationId: postAnimal
+      summary: adds an animal based on request parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Animal"
+      responses:
+        200:
+          description: Planning result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+        400:
+          description: Bad Request - Invalid input or malformed request
+          content:
+            application/json:
+              schema:
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      message:
+                        type: string
+                        description: Error message describing the bad request        
+  /animals/{kind}:
+    get:
+      operationId: getAnimalByKind
+      summary: provides Animal information filtered by kind
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/AnimalKindEnum"
+      responses:
+        200:
+          description: Animal information filtered by kind
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                items:
+                  $ref: "#/components/schemas/Animal"
+  
+    put:
+      operationId: putAnimal
+      summary: updates an animal based on request parameters
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/AnimalKindEnum"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Animal"
+      responses:
+        200:
+          description: the new Animal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Animal"
+        400:
+          description: Bad Request - Invalid input or malformed request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  message:
+                    type: string
+                    description: Error message describing the bad request  
+                    
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    Animal:
+      type: object
+      additionalProperties: false
+      properties:
+        kind:
+          $ref: "#/components/schemas/AnimalKindEnum"          
+        name:
+          type: string
+          example: Buddy
+      required:
+        - kind
+        - name
+
+    AnimalKindEnum:
+      type: string
+      enum:
+        - Cat
+        - Kokmeeuw
+        - Mouse
+        - Goldfish
+        - Egel
+        - Turtle
+      example: Turtle
+
