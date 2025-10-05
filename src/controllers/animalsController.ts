@@ -7,7 +7,6 @@ export async function getAnimals(context: Context<Document>, req: Request, res: 
     { kind: 'Cat', name: 'Mittens' },
     { kind: 'Goldfish', name: 'Goldie' },
   ];
-  console.log(animals);
   return res.status(200).json(animals);
 }
 
