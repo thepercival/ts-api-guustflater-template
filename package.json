@@ -7,17 +7,18 @@
   "type": "module",
   "keywords": [],
   "scripts": {
-    "postinstall": "npm run build",
+    "p2ostinstall": "npm run build",
     "build": "tsc",
     "watch-build": "tsc -w",
     "start": "node dist/index.js",
     "watch-start": "nodemon --delay 2 -w dist/ -x 'npm run start'",
     "dev": "concurrently -k -p '[{name}]' -n 'typescript,api' -c 'yellow.bold,cyan.bold' npm:watch-build npm:watch-start",
-    "lint": "tslint --format prose --project .",    
+    "lint": "tslint --format prose --project .",
     "test": "jest",
     "release": "semantic-release",
     "openapi": "openapi typegen --backend ./definitions/guustflater-openapi.yaml > types/guustflater-openapi.d.ts",
-    "validate-openapi": "npx @redocly/openapi-cli validate definitions/guustflater-openapi.yaml"
+    "openapi-version": "openapi --version",
+    "validate-openapi-noredocly": "npx @redocly/openapi-cli validate definitions/guustflater-openapi.yaml"
   },
   "dependencies": {
     "express": "^5.0",
@@ -25,26 +26,24 @@
     "openapi-backend": "^5.2"
   },
   "devDependencies": {
-    "@typespec/openapi3": "^1.4",
-    "@redocly/cli": "^2.0",
-    "@types/express": "^5.0",
+    "@semantic-release/changelog": "^6.0",
+    "@semantic-release/commit-analyzer": "^10.0",
+    "@semantic-release/github": "^9.0",
+    "@semantic-release/npm": "^9.0",
+    "@semantic-release/release-notes-generator": "^11.0",
+    "@types/express": "^5.0.3",
     "@types/jest": "^30.0",
     "@types/morgan": "^1.0",
     "@types/node": "^24.0",
     "axios": "^1.0",
     "concurrently": "^9.0",
     "jest": "^30.0",
-    "nodemon": "^3.0",    
+    "nodemon": "^3.0",
+    "semantic-release": "^21.0",
     "ts-jest": "^29.0",
+    "ts-node": "^10.9",
     "tslint": "^6.0",
     "typescript": "^5.8",
-    "ts-node": "^10.9",
-    "wait-on": "^9.0",
-    "semantic-release": "^21.0",
-    "@semantic-release/changelog": "^6.0",
-    "@semantic-release/commit-analyzer": "^10.0",
-    "@semantic-release/github": "^9.0",
-    "@semantic-release/npm": "^9.0",
-    "@semantic-release/release-notes-generator": "^11.0"
+    "wait-on": "^9.0"
   }
 }

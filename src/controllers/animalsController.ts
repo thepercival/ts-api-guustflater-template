@@ -1,6 +1,6 @@
 import type { Context, Document } from 'openapi-backend';
 import type { Request, Response } from 'express';
-import type { Animal } from 'guustflater-openapi';
+import type { Animal } from '../../types/guustflater-openapi.d.ts';
 
 export async function getAnimals(context: Context<Document>, req: Request, res: Response) {
   const animals: Animal[] = [
