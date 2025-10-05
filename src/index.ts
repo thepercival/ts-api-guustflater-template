@@ -1,9 +1,15 @@
 import Express from 'express';
 import morgan from 'morgan';
 
-import type { Context, Document, Request } from 'openapi-backend';
+import type { Request } from 'openapi-backend';
 import { OpenAPIBackend } from 'openapi-backend';
-import { Animal } from 'guustflater-openapi';
+import {
+  getAnimals,
+  postAnimal,
+  getAnimalByKind,
+  putAnimal,
+  
+} from './controllers/animalsController';
 
 const app = Express();
 app.use(Express.json());
@@ -21,33 +27,14 @@ console.log({ kind: 'Cat', name: 'Mittens' });
 
 // register handlers
 api.register({
-    getAnimals: async (context: Context<Document>, req: Express.Request, res: Express.Response) => {
-      const animals: Animal[] = [
-        { kind: 'Cat', name: 'Mittens' },
-        { kind: 'Goldfish', name: 'Goldie' },
-      ];
-      console.log(animals);
-      return res.status(200).json(animals);
-    },
-    postAnimal: async (context: Context<Document>, req: Express.Request, res: Express.Response) => {
-      const animal: Animal = req.body;
-
-      const animals: Animal[] = [
-        { kind: 'Cat', name: 'Mittens' },
-        { kind: 'Goldfish', name: 'Goldie' },
-      ];
-      animals.push(animal);
-      return res.status(200).json(animal);
-    },
-    getAnimalByKind: async (context: Context<Document>, req: Express.Request, res: Express.Response) => {
-      return res.status(200).json({ kind: 'Goldfish', name: 'Goldie' });
-    },
-    putAnimal: async (context: Context<Document>, req: Express.Request, res: Express.Response) => {
-      return res.status(200);
-    },
-    validationFail: async (c, req: Express.Request, res: Express.Response) =>
-      res.status(400).json({ err: c.validation.errors }),
-    notFound: async (c, req: Express.Request, res: Express.Response) => res.status(404).json({ err: 'not found' }),  
+  getAnimals,
+  postAnimal,
+  getAnimalByKind,
+  putAnimal,
+  // validationFail and notFound are implemented inline here to keep framework-level behavior nearby
+  validationFail: async (c, req: Express.Request, res: Express.Response) =>
+    res.status(400).json({ err: c.validation.errors }),
+  notFound: async (c, req: Express.Request, res: Express.Response) => res.status(404).json({ err: 'not found' }),
 });
 
 api.init();
