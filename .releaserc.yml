@@ -1,0 +1,8 @@
+branches:
+  - main
+repositoryUrl: https://github.com/thepercival/ts-api-guustflater-template
+plugins:
+  - '@semantic-release/commit-analyzer'
+  - '@semantic-release/release-notes-generator'
+  - '@semantic-release/changelog'
+  - '@semantic-release/github'

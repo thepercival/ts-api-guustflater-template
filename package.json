@@ -15,6 +15,7 @@
     "dev": "concurrently -k -p '[{name}]' -n 'typescript,api' -c 'yellow.bold,cyan.bold' npm:watch-build npm:watch-start",
     "lint": "tslint --format prose --project .",    
     "test": "jest",
+    "release": "semantic-release",
     "openapi": "openapi typegen --backend ./definitions/guustflater-openapi.yaml > types/guustflater-openapi.d.ts",
     "validate-openapi": "npx @redocly/openapi-cli validate definitions/guustflater-openapi.yaml"
   },
@@ -34,10 +35,16 @@
     "concurrently": "^9.0",
     "jest": "^30.0",
     "nodemon": "^3.0",
-    "ts-jest": "^29.0",
+  "ts-jest": "^29.0",
     "tslint": "^6.0",
     "typescript": "^5.8",
     "ts-node": "^10.9",
-    "wait-on": "^9.0"    
+    "wait-on": "^9.0",
+    "semantic-release": "^21.0",
+    "@semantic-release/changelog": "^6.0",
+    "@semantic-release/commit-analyzer": "^10.0",
+    "@semantic-release/github": "^9.0",
+    "@semantic-release/npm": "^9.0",
+    "@semantic-release/release-notes-generator": "^11.0"
   }
 }
