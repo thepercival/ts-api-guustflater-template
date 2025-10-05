@@ -7,7 +7,6 @@
   "type": "module",
   "keywords": [],
   "scripts": {
-    "p2ostinstall": "npm run build",
     "build": "tsc",
     "watch-build": "tsc -w",
     "start": "node dist/index.js",
